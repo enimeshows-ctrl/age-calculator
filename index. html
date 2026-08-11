@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Smart Calculator Tools - Free Online Calculators</title>
+
+  <meta name="description" content="Free online calculators including Age Calculator, EMI Calculator and GST Calculator. Fast, simple and mobile friendly.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    .hero {
+      background: white;
+      border-radius: 28px;
+      padding: 40px 25px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.20);
+    }
+
+    .logo {
+      font-size: 50px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 35px;
+    }
+
+    .tool {
+      text-decoration: none;
+      color: #222;
+      background: #f7f7ff;
+      border-radius: 20px;
+      padding: 28px 18px;
+      transition: 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .tool:hover {
+      transform: translateY(-5px);
+      border-color: #667eea;
+    }
+
+    .icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .tool h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .tool p {
+      color: #777;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .open {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .features {
+      margin-top: 35px;
+      padding: 25px;
+      background: #fafafa;
+      border-radius: 18px;
+      text-align: left;
+    }
+
+    .features h2 {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .features p {
+      margin: 10px 0;
+      color: #555;
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #999;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      .tools {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+
+      .hero {
+        padding: 30px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="hero">
+
+      <div class="logo">🧮</div>
+
+      <h1>Smart Calculator Tools</h1>
+
+      <p class="subtitle">
+        Free, fast and easy-to-use online calculators.
+        Choose a calculator below and get your result instantly.
+      </p>
+
+      <div class="tools">
+
+        <a class="tool" href="age-calculator.html">
+
+          <div class="icon">🎂</div>
+
+          <h2>Age Calculator</h2>
+
+          <p>
+            Calculate your exact age in years, months and days.
+            Find your next birthday countdown too.
+          </p>
+
+          <span class="open">Open Calculator →</span>
+
+        </a>
+
+
+        <a class="tool" href="emi-calculator.html">
+
+          <div class="icon">💰</div>
+
+          <h2>EMI Calculator</h2>
+
+          <p>
+            Calculate monthly loan EMI, total interest
+            and total payment easily.
+          </p>
+
+          <span class="open">Open Calculator →</span>
+
+        </a>
+
+
+        <a class="tool" href="gst-calculator.html">
+
+          <div class="icon">🧾</div>
+
+          <h2>GST Calculator</h2>
+
+          <p>
+            Calculate GST amount, CGST, SGST
+            and final price quickly.
+          </p>
+
+          <span class="open">Open Calculator →</span>
+
+        </a>
+
+      </div>
+
+
+      <div class="features">
+
+        <h2>Why Use Our Calculators?</h2>
+
+        <p>✅ Free to use</p>
+        <p>✅ Mobile-friendly design</p>
+        <p>✅ Fast calculations</p>
+        <p>✅ No registration required</p>
+        <p>✅ Simple and easy to understand</p>
+
+      </div>
+
+
+      <div class="footer">
+        © 2026 Smart Calculator Tools
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
