@@ -3,159 +3,297 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Age Calculator - Calculate Your Exact Age</title>
-  <meta name="description" content="Free online age calculator. Calculate your exact age in years, months and days.">
+
+  <title>Age Calculator</title>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #222;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
 
     .container {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
+      width: 100%;
+      max-width: 500px;
     }
 
     .card {
       background: white;
+      border-radius: 25px;
       padding: 30px;
-      border-radius: 18px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+
+    .title {
       text-align: center;
+      margin-bottom: 10px;
+      color: #222;
+      font-size: 32px;
     }
 
-    h1 {
-      margin-top: 0;
-      font-size: 30px;
-    }
-
-    p {
-      color: #666;
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 30px;
+      font-size: 15px;
     }
 
     label {
       display: block;
-      text-align: left;
-      margin: 20px 0 8px;
+      margin-bottom: 8px;
       font-weight: bold;
+      color: #333;
     }
 
     input {
       width: 100%;
-      padding: 14px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
       font-size: 16px;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    input:focus {
+      border-color: #667eea;
     }
 
     button {
       width: 100%;
-      padding: 15px;
-      margin-top: 25px;
+      padding: 16px;
       border: none;
-      border-radius: 10px;
-      background: #2563eb;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
     }
 
     button:hover {
-      background: #1d4ed8;
+      opacity: 0.9;
     }
 
-    #result {
+    .result {
+      display: none;
       margin-top: 25px;
-      padding: 20px;
-      border-radius: 12px;
-      background: #eef4ff;
-      font-size: 20px;
+    }
+
+    .result h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .boxes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .box {
+      background: #f4f5ff;
+      border-radius: 15px;
+      padding: 18px 5px;
+      text-align: center;
+    }
+
+    .number {
+      font-size: 28px;
       font-weight: bold;
+      color: #667eea;
+    }
+
+    .label {
+      margin-top: 5px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .extra {
+      margin-top: 20px;
+      background: #f8f8f8;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .error {
+      color: #e53935;
+      text-align: center;
+      margin-top: 15px;
       display: none;
     }
 
     .footer {
       text-align: center;
       margin-top: 25px;
-      color: #777;
-      font-size: 14px;
+      color: #999;
+      font-size: 13px;
+    }
+
+    @media (max-width: 400px) {
+      .card {
+        padding: 22px;
+      }
+
+      .title {
+        font-size: 27px;
+      }
+
+      .number {
+        font-size: 23px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
-  <div class="card">
+  <div class="container">
 
-    <h1>🎂 Age Calculator</h1>
+    <div class="card">
 
-    <p>Enter your date of birth to calculate your exact age.</p>
+      <h1 class="title">🎂 Age Calculator</h1>
 
-    <label for="dob">Date of Birth</label>
-    <input type="date" id="dob">
+      <p class="subtitle">
+        Calculate your exact age in years, months and days
+      </p>
 
-    <button onclick="calculateAge()">Calculate My Age</button>
+      <label for="dob">Enter your date of birth</label>
 
-    <div id="result"></div>
+      <input type="date" id="dob">
+
+      <button onclick="calculateAge()">
+        Calculate My Age
+      </button>
+
+      <p class="error" id="error">
+        Please enter a valid date of birth.
+      </p>
+
+      <div class="result" id="result">
+
+        <h2>Your Age</h2>
+
+        <div class="boxes">
+
+          <div class="box">
+            <div class="number" id="years">0</div>
+            <div class="label">Years</div>
+          </div>
+
+          <div class="box">
+            <div class="number" id="months">0</div>
+            <div class="label">Months</div>
+          </div>
+
+          <div class="box">
+            <div class="number" id="days">0</div>
+            <div class="label">Days</div>
+          </div>
+
+        </div>
+
+        <div class="extra" id="extra"></div>
+
+      </div>
+
+      <div class="footer">
+        © 2026 Age Calculator
+      </div>
+
+    </div>
 
   </div>
 
-  <div class="footer">
-    © 2026 Age Calculator
-  </div>
-</div>
 
-<script>
-function calculateAge() {
+  <script>
 
-  const dob = new Date(document.getElementById("dob").value);
-  const today = new Date();
+    function calculateAge() {
 
-  if (!document.getElementById("dob").value) {
-    alert("Please select your date of birth.");
-    return;
-  }
+      const dobInput = document.getElementById("dob");
+      const error = document.getElementById("error");
+      const result = document.getElementById("result");
 
-  if (dob > today) {
-    alert("Date of birth cannot be in the future.");
-    return;
-  }
+      const dob = new Date(dobInput.value);
 
-  let years = today.getFullYear() - dob.getFullYear();
-  let months = today.getMonth() - dob.getMonth();
-  let days = today.getDate() - dob.getDate();
+      const today = new Date();
 
-  if (days < 0) {
-    months--;
-    const previousMonth = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      0
-    );
-    days += previousMonth.getDate();
-  }
+      error.style.display = "none";
+      result.style.display = "none";
 
-  if (months < 0) {
-    years--;
-    months += 12;
-  }
+      if (!dobInput.value || dob > today) {
+        error.textContent = "Please enter a valid date of birth.";
+        error.style.display = "block";
+        return;
+      }
 
-  document.getElementById("result").style.display = "block";
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
 
-  document.getElementById("result").innerHTML =
-    "Your age is:<br><br>" +
-    years + " Years, " +
-    months + " Months, " +
-    days + " Days";
-}
-</script>
+      if (days < 0) {
+        months--;
+
+        const previousMonth = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          0
+        );
+
+        days += previousMonth.getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      document.getElementById("years").textContent = years;
+      document.getElementById("months").textContent = months;
+      document.getElementById("days").textContent = days;
+
+      const totalMonths =
+        (today.getFullYear() - dob.getFullYear()) * 12 +
+        (today.getMonth() - dob.getMonth());
+
+      let totalDays = Math.floor(
+        (today - dob) / (1000 * 60 * 60 * 24)
+      );
+
+      document.getElementById("extra").innerHTML =
+        "You are <strong>" +
+        years +
+        " years, " +
+        months +
+        " months and " +
+        days +
+        " days</strong> old.<br><br>" +
+        "That's approximately <strong>" +
+        totalMonths +
+        " months</strong> or <strong>" +
+        totalDays.toLocaleString() +
+        " days</strong>.";
+
+      result.style.display = "block";
+    }
+
+  </script>
 
 </body>
 </html>
