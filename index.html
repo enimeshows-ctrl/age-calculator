@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Age Calculator</title>
+  <title>Age Calculator - Exact Age & Birthday</title>
+  <meta name="description" content="Free online age calculator. Calculate your exact age, total days, weeks, months and next birthday.">
 
   <style>
     * {
@@ -17,43 +18,41 @@
       font-family: Arial, sans-serif;
       min-height: 100vh;
       background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       padding: 20px;
+      color: #222;
     }
 
     .container {
       width: 100%;
-      max-width: 500px;
+      max-width: 600px;
+      margin: 30px auto;
     }
 
     .card {
-      background: white;
+      background: #ffffff;
       border-radius: 25px;
       padding: 30px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.20);
     }
 
     .title {
       text-align: center;
-      margin-bottom: 10px;
-      color: #222;
       font-size: 32px;
+      margin-bottom: 8px;
     }
 
     .subtitle {
       text-align: center;
       color: #777;
-      margin-bottom: 30px;
       font-size: 15px;
+      margin-bottom: 30px;
+      line-height: 1.5;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
       font-weight: bold;
-      color: #333;
+      margin-bottom: 8px;
     }
 
     input {
@@ -63,48 +62,68 @@
       border-radius: 12px;
       font-size: 16px;
       outline: none;
-      margin-bottom: 20px;
     }
 
     input:focus {
       border-color: #667eea;
     }
 
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
     button {
-      width: 100%;
-      padding: 16px;
+      flex: 1;
+      padding: 15px;
       border: none;
       border-radius: 12px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    button:hover {
-      opacity: 0.9;
+    .calculate {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .reset {
+      background: #eeeeee;
+      color: #333;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .error {
+      display: none;
+      color: #e53935;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
     }
 
     .result {
       display: none;
-      margin-top: 25px;
+      margin-top: 30px;
     }
 
-    .result h2 {
+    .result-title {
       text-align: center;
-      color: #333;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
-    .boxes {
+    .age-boxes {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
-    .box {
-      background: #f4f5ff;
+    .age-box {
+      background: #f3f4ff;
       border-radius: 15px;
       padding: 18px 5px;
       text-align: center;
@@ -116,27 +135,32 @@
       color: #667eea;
     }
 
-    .label {
+    .unit {
       margin-top: 5px;
       color: #666;
       font-size: 13px;
     }
 
-    .extra {
-      margin-top: 20px;
+    .info {
+      margin-top: 15px;
+      padding: 18px;
       background: #f8f8f8;
       border-radius: 15px;
-      padding: 15px;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .birthday {
+      margin-top: 15px;
+      padding: 18px;
+      background: #fff4d6;
+      border-radius: 15px;
       text-align: center;
-      color: #555;
       line-height: 1.7;
     }
 
-    .error {
-      color: #e53935;
-      text-align: center;
-      margin-top: 15px;
-      display: none;
+    .birthday strong {
+      color: #d97706;
     }
 
     .footer {
@@ -146,13 +170,21 @@
       font-size: 13px;
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 420px) {
       .card {
         padding: 22px;
       }
 
       .title {
         font-size: 27px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .age-boxes {
+        gap: 7px;
       }
 
       .number {
@@ -171,45 +203,51 @@
       <h1 class="title">🎂 Age Calculator</h1>
 
       <p class="subtitle">
-        Calculate your exact age in years, months and days
+        Calculate your exact age and find out when your next birthday is.
       </p>
 
-      <label for="dob">Enter your date of birth</label>
+      <label for="dob">Date of Birth</label>
 
       <input type="date" id="dob">
 
-      <button onclick="calculateAge()">
-        Calculate My Age
-      </button>
+      <div class="buttons">
+        <button class="calculate" onclick="calculateAge()">
+          Calculate Age
+        </button>
 
-      <p class="error" id="error">
-        Please enter a valid date of birth.
-      </p>
+        <button class="reset" onclick="resetCalculator()">
+          Reset
+        </button>
+      </div>
+
+      <div class="error" id="error"></div>
 
       <div class="result" id="result">
 
-        <h2>Your Age</h2>
+        <h2 class="result-title">Your Exact Age</h2>
 
-        <div class="boxes">
+        <div class="age-boxes">
 
-          <div class="box">
+          <div class="age-box">
             <div class="number" id="years">0</div>
-            <div class="label">Years</div>
+            <div class="unit">Years</div>
           </div>
 
-          <div class="box">
+          <div class="age-box">
             <div class="number" id="months">0</div>
-            <div class="label">Months</div>
+            <div class="unit">Months</div>
           </div>
 
-          <div class="box">
+          <div class="age-box">
             <div class="number" id="days">0</div>
-            <div class="label">Days</div>
+            <div class="unit">Days</div>
           </div>
 
         </div>
 
-        <div class="extra" id="extra"></div>
+        <div class="info" id="totalInfo"></div>
+
+        <div class="birthday" id="birthdayInfo"></div>
 
       </div>
 
@@ -221,79 +259,14 @@
 
   </div>
 
-
   <script>
 
     function calculateAge() {
 
-      const dobInput = document.getElementById("dob");
+      const input = document.getElementById("dob");
       const error = document.getElementById("error");
       const result = document.getElementById("result");
 
-      const dob = new Date(dobInput.value);
-
-      const today = new Date();
-
-      error.style.display = "none";
-      result.style.display = "none";
-
-      if (!dobInput.value || dob > today) {
-        error.textContent = "Please enter a valid date of birth.";
-        error.style.display = "block";
-        return;
-      }
-
-      let years = today.getFullYear() - dob.getFullYear();
-      let months = today.getMonth() - dob.getMonth();
-      let days = today.getDate() - dob.getDate();
-
-      if (days < 0) {
-        months--;
-
-        const previousMonth = new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          0
-        );
-
-        days += previousMonth.getDate();
-      }
-
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-
-      document.getElementById("years").textContent = years;
-      document.getElementById("months").textContent = months;
-      document.getElementById("days").textContent = days;
-
-      const totalMonths =
-        (today.getFullYear() - dob.getFullYear()) * 12 +
-        (today.getMonth() - dob.getMonth());
-
-      let totalDays = Math.floor(
-        (today - dob) / (1000 * 60 * 60 * 24)
-      );
-
-      document.getElementById("extra").innerHTML =
-        "You are <strong>" +
-        years +
-        " years, " +
-        months +
-        " months and " +
-        days +
-        " days</strong> old.<br><br>" +
-        "That's approximately <strong>" +
-        totalMonths +
-        " months</strong> or <strong>" +
-        totalDays.toLocaleString() +
-        " days</strong>.";
-
-      result.style.display = "block";
-    }
-
-  </script>
-
-</body>
-</html>
+      error.style.display = "none
+    
+            
