@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EMI Calculator - Calculate Monthly EMI</title>
+
+<meta name="description" content="Free EMI Calculator. Calculate monthly EMI, total interest and total payment for your loan.">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  padding:20px;
+}
+
+.container{
+  max-width:600px;
+  margin:30px auto;
+}
+
+.card{
+  background:white;
+  border-radius:25px;
+  padding:30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+h1{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#777;
+  margin-bottom:28px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin:18px 0 8px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border:2px solid #ddd;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#667eea;
+}
+
+button{
+  width:100%;
+  margin-top:25px;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.result{
+  display:none;
+  margin-top:25px;
+}
+
+.box{
+  background:#f3f4ff;
+  padding:18px;
+  border-radius:15px;
+  margin-bottom:12px;
+  text-align:center;
+}
+
+.box strong{
+  display:block;
+  font-size:25px;
+  color:#667eea;
+  margin-top:5px;
+}
+
+.error{
+  display:none;
+  color:#e53935;
+  text-align:center;
+  margin-top:15px;
+}
+
+.footer{
+  text-align:center;
+  color:#999;
+  font-size:13px;
+  margin-top:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>💰 EMI Calculator</h1>
+
+<p class="subtitle">
+Calculate your monthly loan EMI, interest and total payment.
+</p>
+
+<label>Loan Amount (₹)</label>
+<input type="number" id="amount" placeholder="Example: 500000">
+
+<label>Interest Rate (% per year)</label>
+<input type="number" id="rate" placeholder="Example: 8.5" step="0.01">
+
+<label>Loan Tenure (Years)</label>
+<input type="number" id="years" placeholder="Example: 5">
+
+<button onclick="calculateEMI()">
+Calculate EMI
+</button>
+
+<div class="error" id="error"></div>
+
+<div class="result" id="result">
+
+<div class="box">
+Monthly EMI
+<strong id="emi">₹0</strong>
+</div>
+
+<div class="box">
+Total Interest
+<strong id="interest">₹0</strong>
+</div>
+
+<div class="box">
+Total Payment
+<strong id="total">₹0</strong>
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 EMI Calculator
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function calculateEMI(){
+
+const amount=parseFloat(document.getElementById("amount").value);
+const rate=parseFloat(document.getElementById("rate").value);
+const years=parseFloat(document.getElementById("years").value);
+
+const error=document.getElementById("error");
+const result=document.getElementById("result");
+
+error.style.display="none";
+result.style.display="none";
+
+if(!amount || !rate || !years || amount<=0 || rate<0 || years<=0){
+
+error.textContent="Please enter valid loan details.";
+error.style.display="block";
+return;
+
+}
+
+const monthlyRate=rate/(12*100);
+const months=years*12;
+
+let emi;
+
+if(monthlyRate===0){
+
+emi=amount/months;
+
+}else{
+
+emi=amount*
+monthlyRate*
+Math.pow(1+monthlyRate,months)/
+(Math.pow(1+monthlyRate,months)-1);
+
+}
+
+const totalPayment=emi*months;
+const totalInterest=totalPayment-amount;
+
+document.getElementById("emi").textContent=
+"₹"+Math.round(emi).toLocaleString("en-IN");
+
+document.getElementById("interest").textContent=
+"₹"+Math.round(totalInterest).toLocaleString("en-IN");
+
+document.getElementById("total").textContent=
+"₹"+Math.round(totalPayment).toLocaleString("en-IN");
+
+result.style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
