@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GST Calculator - Calculate GST Amount</title>
+
+  <meta name="description"
+        content="Free GST Calculator. Calculate GST amount, CGST, SGST and total price quickly.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.20);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .menu {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .menu a {
+      display: inline-block;
+      margin: 5px;
+      padding: 8px 12px;
+      background: #f1f2ff;
+      color: #4f46e5;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 18px 0 8px;
+      color: #333;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #667eea;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .reset {
+      background: #eeeeee;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    .error {
+      display: none;
+      color: #e53935;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .result {
+      display: none;
+      margin-top: 28px;
+    }
+
+    .result h2 {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .box {
+      background: #f3f4ff;
+      padding: 17px;
+      border-radius: 15px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .box span {
+      display: block;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .box strong {
+      display: block;
+      font-size: 24px;
+      color: #667eea;
+    }
+
+    .footer {
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+      margin-top: 25px;
+    }
+
+    @media (max-width: 420px) {
+      .card {
+        padding: 22px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <div class="menu">
+        <a href="index.html">🎂 Age Calculator</a>
+        <a href="emi-calculator.html">💰 EMI Calculator</a>
+        <a href="gst-calculator.html">🧾 GST Calculator</a>
+      </div>
+
+      <h1>🧾 GST Calculator</h1>
+
+      <p class="subtitle">
+        Calculate GST, CGST, SGST and final price easily.
+      </p>
+
+      <label for="amount">Amount (₹)</label>
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Example: 10000"
+        min="0"
+      >
+
+      <label for="gst">GST Rate</label>
+
+      <select id="gst">
+        <option value="5">5%</option>
+        <option value="12">12%</option>
+        <option value="18" selected>18%</option>
+        <option value="28">28%</option>
+      </select>
+
+      <label for="mode">Calculation Type</label>
+
+      <select id="mode">
+        <option value="exclusive">
+          GST Exclusive - Add GST
+        </option>
+
+        <option value="inclusive">
+          GST Inclusive - Remove GST
+        </option>
+      </select>
+
+      <button onclick="calculateGST()">
+        Calculate GST
+      </button>
+
+      <button class="reset" onclick="resetCalculator()">
+        Reset
+      </button>
+
+      <div class="error" id="error"></div>
+
+      <div class="result" id="result">
+
+        <h2>GST Result</h2>
+
+        <div class="box">
+          <span>Original Amount</span>
+          <strong id="original">₹0</strong>
+        </div>
+
+        <div class="box">
+          <span>GST Amount</span>
+          <strong id="gstAmount">₹0</strong>
+        </div>
+
+        <div class="box">
+          <span>CGST</span>
+          <strong id="cgst">₹0</strong>
+        </div>
+
+        <div class="box">
+          <span>SGST</span>
+          <strong id="sgst">₹0</strong>
+        </div>
+
+        <div class="box">
+          <span>Final Amount</span>
+          <strong id="finalAmount">₹0</strong>
+        </div>
+
+      </div>
+
+      <div class="footer">
+        © 2026 GST Calculator
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function formatRupees(value) {
+      return "₹" + Math.round(value).toLocaleString("en-IN");
+    }
+
+    function calculateGST() {
+
+      const amount =
+        parseFloat(document.getElementById("amount").value);
+
+      const gstRate =
+        parseFloat(document.getElementById("gst").value);
+
+      const mode =
+        document.getElementById("mode").value;
+
+      const error =
+        document.getElementById("error");
+
+      const result =
+        document.getElementById("result");
+
+      error.style.display = "none";
+      result.style.display = "none";
+
+      if (!amount || amount <= 0) {
+
+        error.textContent =
+          "Please enter a valid amount.";
+
+        error.style.display = "block";
+
+        return;
+      }
+
+      let originalAmount;
+      let gstAmount;
+      let finalAmount;
+
+      if (mode === "exclusive") {
+
+        originalAmount = amount;
+
+        gstAmount =
+          amount * gstRate / 100;
+
+        finalAmount =
+          amount + gstAmount;
+
+      } else {
+
+        finalAmount = amount;
+
+        originalAmount =
+          amount / (1 + gstRate / 100);
+
+        gstAmount =
+          amount - originalAmount;
+      }
+
+      const cgst =
+        gstAmount / 2;
+
+      const sgst =
+        gstAmount / 2;
+
+      document.getElementById("original").textContent =
+        formatRupees(originalAmount);
+
+      document.getElementById("gstAmount").textContent =
+        formatRupees(gstAmount);
+
+      document.getElementById("cgst").textContent =
+        formatRupees(cgst);
+
+      document.getElementById("sgst").textContent =
+        formatRupees(sgst);
+
+      document.getElementById("finalAmount").textContent =
+        formatRupees(finalAmount);
+
+      result.style.display = "block";
+    }
+
+
+    function resetCalculator() {
+
+      document.getElementById("amount").value = "";
+
+      document.getElementById("gst").value = "18";
+
+      document.getElementById("mode").value = "exclusive";
+
+      document.getElementById("error").style.display = "none";
+
+      document.getElementById("result").style.display = "none";
+    }
+
+  </script>
+
+</body>
+</html>
