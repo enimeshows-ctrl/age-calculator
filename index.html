@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator - Calculate Your Exact Age</title>
+  <meta name="description" content="Free online age calculator. Calculate your exact age in years, months and days.">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 30px;
+    }
+
+    p {
+      color: #666;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 20px 0 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 25px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    #result {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #eef4ff;
+      font-size: 20px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card">
+
+    <h1>🎂 Age Calculator</h1>
+
+    <p>Enter your date of birth to calculate your exact age.</p>
+
+    <label for="dob">Date of Birth</label>
+    <input type="date" id="dob">
+
+    <button onclick="calculateAge()">Calculate My Age</button>
+
+    <div id="result"></div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 Age Calculator
+  </div>
+</div>
+
+<script>
+function calculateAge() {
+
+  const dob = new Date(document.getElementById("dob").value);
+  const today = new Date();
+
+  if (!document.getElementById("dob").value) {
+    alert("Please select your date of birth.");
+    return;
+  }
+
+  if (dob > today) {
+    alert("Date of birth cannot be in the future.");
+    return;
+  }
+
+  let years = today.getFullYear() - dob.getFullYear();
+  let months = today.getMonth() - dob.getMonth();
+  let days = today.getDate() - dob.getDate();
+
+  if (days < 0) {
+    months--;
+    const previousMonth = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      0
+    );
+    days += previousMonth.getDate();
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  document.getElementById("result").style.display = "block";
+
+  document.getElementById("result").innerHTML =
+    "Your age is:<br><br>" +
+    years + " Years, " +
+    months + " Months, " +
+    days + " Days";
+}
+</script>
+
+</body>
+</html>
