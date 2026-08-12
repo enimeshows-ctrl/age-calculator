@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://enimeshows-ctrl.github.io/age-calculator/sitemap.xml
