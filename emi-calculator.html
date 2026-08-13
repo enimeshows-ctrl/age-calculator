@@ -71,10 +71,20 @@ button{
   padding:15px;
   border:0;
   border-radius:12px;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:white;
   font-size:17px;
   font-weight:bold;
+  cursor:pointer;
+}
+
+.calculate{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+}
+
+.reset{
+  background:#eeeeee;
+  color:#333;
+  margin-top:10px;
 }
 
 .result{
@@ -110,13 +120,20 @@ button{
   font-size:13px;
   margin-top:25px;
 }
+
+@media(max-width:450px){
+  .card{
+    padding:22px;
+  }
+
+  h1{
+    font-size:27px;
+  }
+}
 </style>
 </head>
 
 <body>
-
-
-
 
 <div style="text-align:center; margin-bottom:20px;">
   <a href="index.html" style="margin:5px;">🏠 Home</a>
@@ -125,7 +142,6 @@ button{
   <a href="gst-calculator.html" style="margin:5px;">🧾 GST Calculator</a>
   <a href="percentage-calculator.html" style="margin:5px;">📊 Percentage Calculator</a>
 </div>
-
 
 <div class="container">
 
@@ -136,11 +152,13 @@ button{
 <p class="subtitle">
 Calculate your monthly loan EMI, interest and total payment.
 </p>
+
 <p style="line-height:1.7; color:#555; margin-bottom:20px;">
 Use this free EMI Calculator to calculate the monthly installment for your loan.
 Enter the loan amount, annual interest rate and loan tenure to instantly find
 your monthly EMI, total interest and total repayment amount.
 </p>
+
 <label>Loan Amount (₹)</label>
 <input type="number" id="amount" placeholder="Example: 500000">
 
@@ -150,8 +168,12 @@ your monthly EMI, total interest and total repayment amount.
 <label>Loan Tenure (Years)</label>
 <input type="number" id="years" placeholder="Example: 5">
 
-<button onclick="calculateEMI()">
+<button class="calculate" onclick="calculateEMI()">
 Calculate EMI
+</button>
+
+<button class="reset" onclick="resetCalculator()">
+Reset
 </button>
 
 <div class="error" id="error"></div>
@@ -236,6 +258,17 @@ document.getElementById("total").textContent=
 "₹"+Math.round(totalPayment).toLocaleString("en-IN");
 
 result.style.display="block";
+
+}
+
+function resetCalculator(){
+
+document.getElementById("amount").value="";
+document.getElementById("rate").value="";
+document.getElementById("years").value="";
+
+document.getElementById("error").style.display="none";
+document.getElementById("result").style.display="none";
 
 }
 
